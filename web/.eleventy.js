@@ -15,7 +15,7 @@ module.exports = function(eleventyConfig) {
       .width(width)
       .height(height)
       .auto('format')
-  })
+  });
 
   // https://www.11ty.io/docs/quicktips/inline-css/
   eleventyConfig.addFilter("cssmin", function(code) {

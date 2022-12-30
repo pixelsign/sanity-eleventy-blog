@@ -8,6 +8,7 @@ const hasToken = !!client.config().token
 function generatePost (post) {
   return {
     ...post,
+    excerpt: BlocksToMarkdown(post.excerpt, { serializers, ...client.config() }),
     body: BlocksToMarkdown(post.body, { serializers, ...client.config() })
   }
 }
@@ -20,6 +21,8 @@ async function getPosts () {
     publishedAt,
     title,
     slug,
+    excerpt, // Adds Excerpt here
+    mainImage, //Adds the main image to the feed
     body[]{
       ...,
       children[]{
@@ -34,7 +37,7 @@ async function getPosts () {
     },
     "authors": authors[].author->
   }`
-  const order = `| order(publishedAt asc)`
+  const order = `| order(publishedAt asc)`
   const query = [filter, projection, order].join(' ')
   const docs = await client.fetch(query).catch(err => console.error(err))
   const reducedDocs = overlayDrafts(hasToken, docs)

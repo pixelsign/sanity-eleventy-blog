@@ -22,7 +22,7 @@ async function getPosts () {
     title,
     slug,
     excerpt, // Adds Excerpt here
-    mainImage, //Adds the main image to the feed
+    mainImage, // Adds the main image to the feed
     body[]{
       ...,
       children[]{

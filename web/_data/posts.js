@@ -15,13 +15,13 @@ function generatePost (post) {
 
 async function getPosts () {
   // Learn more: https://www.sanity.io/docs/data-store/how-queries-work
-  const filter = groq`*[_type == "post" && defined(slug) && publishedAt < now()]`
   const projection = groq`{
     _id,
     publishedAt,
     title,
     slug,
-    excerpt, // Adds Excerpt here
+    excerpt,
+    mainImage,
     body[]{
       ...,
       children[]{
@@ -36,6 +36,7 @@ async function getPosts () {
     },
     "authors": authors[].author->
   }`
+  const filter = groq`*[_type == "post" && defined(slug) && publishedAt < now()]`
   const order = `| order(publishedAt asc)`
   const query = [filter, projection, order].join(' ')
   const docs = await client.fetch(query).catch(err => console.error(err))

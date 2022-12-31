@@ -1,6 +1,7 @@
 const { DateTime } = require("luxon");
 const util = require('util')
 const CleanCSS = require("clean-css");
+const urlFor = require('./utils/imageUrl');
 
 module.exports = function(eleventyConfig) {
 
@@ -21,6 +22,19 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter('htmlDateString', (dateObj) => {
     return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat('yyyy-LL-dd');
   });
+
+  eleventyConfig.addShortcode('imageUrlFor', (image, width="400") => {
+    return urlFor(image)
+      .width(width)
+      .auto('format')
+  })
+
+  eleventyConfig.addShortcode('croppedUrlFor', (image,width,height) => {
+    return urlFor(image)
+      .width(width)
+      .height(height)
+      .auto('format')
+  })
 
   let markdownIt = require("markdown-it");
   let markdownItAnchor = require("markdown-it-anchor");
@@ -57,7 +71,7 @@ module.exports = function(eleventyConfig) {
     // This is only used for URLs (it does not affect your file structure)
     pathPrefix: "/",
 
-    markdownTemplateEngine: "liquid",
+    markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk",
     dataTemplateEngine: "njk",
     passthroughFileCopy: true,

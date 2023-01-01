@@ -14,11 +14,9 @@
     </style>
   </head>
   <body>
-
     <main{% if templateClass %} class="{{ templateClass }}"{% endif %}>
       {{ content | safe }}
     </main>
-
     <!-- Current page: {{ page.url | url }} -->
   </body>
 </html>

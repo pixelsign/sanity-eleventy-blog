@@ -18,6 +18,8 @@ module.exports = function(eleventyConfig) {
     return new Date(dateObj).toDateString()
   });
 
+  eleventyConfig.addFilter('console', (value) => `<pre style="white-space: pre-wrap;">${unescape(util.inspect(value))}</pre>`);
+
   // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
   eleventyConfig.addFilter('htmlDateString', (dateObj) => {
     return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat('yyyy-LL-dd');
@@ -27,14 +29,14 @@ module.exports = function(eleventyConfig) {
     return urlFor(image)
       .width(width)
       .auto('format')
-  })
+  });
 
   eleventyConfig.addShortcode('croppedUrlFor', (image,width,height) => {
     return urlFor(image)
       .width(width)
       .height(height)
       .auto('format')
-  })
+  });
 
   let markdownIt = require("markdown-it");
   let markdownItAnchor = require("markdown-it-anchor");

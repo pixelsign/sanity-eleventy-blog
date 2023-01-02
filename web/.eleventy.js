@@ -18,14 +18,12 @@ module.exports = function(eleventyConfig) {
     return new Date(dateObj).toDateString()
   });
 
-  eleventyConfig.addFilter('console', (value) => `<pre style="white-space: pre-wrap;">${unescape(util.inspect(value))}</pre>`);
-
   // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
   eleventyConfig.addFilter('htmlDateString', (dateObj) => {
     return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat('yyyy-LL-dd');
   });
 
-  eleventyConfig.addShortcode('imageUrlFor', (image, width="400") => {
+  eleventyConfig.addShortcode('imageUrlFor', (image, width="900") => {
     return urlFor(image)
       .width(width)
       .auto('format')

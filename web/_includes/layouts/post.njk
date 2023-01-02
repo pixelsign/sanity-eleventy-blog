@@ -4,7 +4,7 @@ templateClass: tmpl-post
 ---
 <article>
   <h1>{{ post.title }}</h1>
-  {{ imageObject | console }}
+  {{ imageObject | dump }}
   <p>
   Written by {% for author in post.authors %}
   <a href="/authors/{{ author.slug.current | slug }}/"> {{author.name}} </a>

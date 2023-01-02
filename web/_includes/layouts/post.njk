@@ -2,9 +2,10 @@
 layout: layouts/base.njk
 templateClass: tmpl-post
 ---
+{% set imageObject = { url: post.mainImage.url, alt: post.mainImage.alt } %}
 <article>
   <h1>{{ post.title }}</h1>
-  {{ imageObject | dump }}
+  <img src="{% imageUrlFor post.mainImage, 600 %}" alt="{{ post.mainImage.alt }}">
   <p>
   Written by {% for author in post.authors %}
   <a href="/authors/{{ author.slug.current | slug }}/"> {{author.name}} </a>
